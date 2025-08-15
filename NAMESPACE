@@ -1,0 +1,2 @@
+export(dcmp, simulate_mcmp_sample, estimate_rho_mCMP, compute_hat_rho_vec, compute_mod_statistics, S_objective, estimate_mu_phi, goodness_of_fit_mCMP)
+importFrom(stats, optim, runif, var)

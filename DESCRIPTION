@@ -1,0 +1,12 @@
+Package: GoodnessOfFitmCMP
+Title: Goodness-of-Fit Tests for the mean reparametrized COM-Poisson Distribution
+Version: 0.1.0
+Author: Traison T
+Maintainer: Traison T <t.traison@gmail.com>
+Description: Implements goodness-of-fit tests for the Conway-Maxwell Poisson (COM-Poisson) distribution based on Stein's characterization. The package provides functions to calculate the probability mass function, generate random samples, and perform modified Cramér-von Mises, Anderson-Darling, and probability distance tests. These tests are computationally efficient as they overcome the normalizing constant issue in the COM-Poisson distribution's probability mass function.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    stats
