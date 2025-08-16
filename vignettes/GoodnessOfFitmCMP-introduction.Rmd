@@ -1,0 +1,84 @@
+
+---
+title: "Introduction to GoodnessOfFitmCMP"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to GoodnessOfFitmCMP}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+```{r setup}
+library(GoodnessOfFitmCMP)
+library(ggplot2)
+```
+
+## Introduction
+
+The Conway-Maxwell Poisson (COM-Poisson) distribution is a flexible generalization of the Poisson distribution that can model under-dispersed, equi-dispersed, and over-dispersed count data. This vignette demonstrates how to use the `GoodnessOfFitmCMP` package to test whether your count data follows a mean-parametrized COM-Poisson (mCMP) distribution.
+
+## The COM-Poisson Distribution
+
+The mCMP distribution has probability mass function:
+
+$$P(X = x) = {\left({\mu + \frac{{e^\phi - 1}}{{2e^\phi}}}\right)^{xe^\phi}}\frac{{(x!)^{-e^\phi}}}{Z(\mu ,\phi)},
+    \quad x = 0,1,2,\ldots,
+    \begin{array}{*{20}{c}}
+       {0 < \mu < +\infty,}  \\
+       {-\infty < \phi < +\infty,}
+    \end{array}$$
+
+where $Z(\mu, \phi)$ is the normalizing constant. The mean-parametrized version uses parameters $\mu$ (mean) and $\phi$ (dispersion).
+
+## Basic Example
+
+```{r basic_example}
+# Example count data
+data <- c(2, 3, 1, 4, 2, 3, 2, 1, 3, 2, 4, 1, 3, 2, 5, 1, 2, 3, 4, 2)
+
+# Perform goodness-of-fit test
+result <- goodness_of_fit_mCMP(data, B = 100, verbose = FALSE)
+
+# Print result
+print(result)
+```
+
+## Understanding the Output
+
+The function returns information about: - Estimated parameters (μ and φ) - Test statistics values - P-values for different tests
+
+```{r explore_result}
+# Check the structure of the result
+str(result)
+
+# Print class and names
+cat("Class:", class(result), "\n")
+if (is.list(result)) {
+  cat("Names:", paste(names(result), collapse = ", "), "\n")
+}
+```
+
+## Test Statistics
+
+The package implements several test statistics: - Modified Cramér-von Mises (CV_M) - Modified Anderson-Darling (AD_M) - Probability Distance (PD) - Standard tests for comparison
+
+## Parameter Interpretation
+
+-   **μ (mu)**: Mean parameter
+-   **φ (phi)**: Dispersion parameter
+    -   φ = 1: Equi-dispersed (Poisson-like)
+    -   φ \> 1: Under-dispersed
+    -   φ \< 1: Over-dispersed
+
+## Conclusion
+
+Use this package when you need to test if count data follows a COM-Poisson distribution, especially when dealing with under- or over-dispersed data.

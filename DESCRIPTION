@@ -10,3 +10,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Imports:
     stats
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+URL: https://traison-t.github.io/GoodnessOfFitmCMP
+BugReports: https://github.com/TRAISON-T/GoodnessOfFitmCMP/issues

@@ -1,4 +1,4 @@
-# GoodnessOfFitmCMP
+[![R-CMD-check](https://github.com/TRAISON-T/GoodnessOfFitmCMP/workflows/R-CMD-check/badge.svg)](https://github.com/TRAISON-T/GoodnessOfFitmCMP/actions) [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental) <!-- badges: start --> [![R-CMD-check](https://github.com/TRAISON-T/GoodnessOfFitmCMP/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TRAISON-T/GoodnessOfFitmCMP/actions/workflows/R-CMD-check.yaml) <!-- badges: end --> \# GoodnessOfFitmCMP
 
 GoodnessOfFitmCMP is an R package that provides goodness-of-fit tests for the **Conway-Maxwell Poisson (COM-Poisson)** distribution, specifically its mean-reparametrized form (mCMP). The package implements novel test statistics based on **Stein's characterization**, which offers a computationally efficient way to handle the normalizing constant inherent in the COM-Poisson probability mass function.
 

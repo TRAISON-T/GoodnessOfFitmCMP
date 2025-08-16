@@ -1,0 +1,36 @@
+url: https://traison-t.github.io/GoodnessOfFitmCMP
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [home, reference, articles, tutorials, news]
+    right: [search, github]
+
+reference:
+  - title: "Main Functions"
+    contents:
+    - goodness_of_fit_mCMP
+    - dcmp
+    - simulate_mcmp_sample
+
+  - title: "Parameter Estimation"
+    contents:
+    - estimate_mu_phi
+    - S_objective
+
+  - title: "Stein-based Functions"
+    contents:
+    - estimate_rho_mCMP
+    - compute_hat_rho_vec
+    - compute_mod_statistics
+
+  - title: "Internal/Helper Functions"
+    contents:
+    - compute_Z
+
+articles:
+  - title: "Getting Started"
+    contents:
+    - GoodnessOfFitmCMP-introduction
