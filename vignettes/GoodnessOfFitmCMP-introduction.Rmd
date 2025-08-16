@@ -1,4 +1,3 @@
-
 ---
 title: "Introduction to GoodnessOfFitmCMP"
 output: rmarkdown::html_vignette
@@ -37,14 +36,13 @@ $$P(X = x) = {\left({\mu + \frac{{e^\phi - 1}}{{2e^\phi}}}\right)^{xe^\phi}}\fra
     \end{array}$$
 
 where $Z(\mu, \phi)$ is the normalizing constant. The mean-parametrized version uses parameters $\mu$ (mean) and $\phi$ (dispersion).
-
 ## Basic Example
 
 ```{r basic_example}
 # Example count data
 data <- c(2, 3, 1, 4, 2, 3, 2, 1, 3, 2, 4, 1, 3, 2, 5, 1, 2, 3, 4, 2)
 
-# Perform goodness-of-fit test
+# Perform goodness-of-fit test (using small B for example speed)
 result <- goodness_of_fit_mCMP(data, B = 100, verbose = FALSE)
 
 # Print result
@@ -53,31 +51,87 @@ print(result)
 
 ## Understanding the Output
 
-The function returns information about: - Estimated parameters (μ and φ) - Test statistics values - P-values for different tests
-
 ```{r explore_result}
 # Check the structure of the result
 str(result)
 
-# Print class and names
-cat("Class:", class(result), "\n")
+# Print class and names if it's a list
 if (is.list(result)) {
-  cat("Names:", paste(names(result), collapse = ", "), "\n")
+  cat("Result components:", paste(names(result), collapse = ", "), "\n")
 }
 ```
 
-## Test Statistics
+## Multiple Examples
 
-The package implements several test statistics: - Modified Cramér-von Mises (CV_M) - Modified Anderson-Darling (AD_M) - Probability Distance (PD) - Standard tests for comparison
+```{r multiple_examples}
+# Example 1: Equi-dispersed data (Poisson-like)
+set.seed(123)
+poisson_data <- rpois(30, lambda = 5)
+result1 <- goodness_of_fit_mCMP(poisson_data, B = 100, verbose = FALSE)
+
+# Example 2: Under-dispersed data
+underdispersed_data <- c(rep(4, 10), rep(5, 15), rep(6, 8))
+result2 <- goodness_of_fit_mCMP(underdispersed_data, B = 100, verbose = FALSE)
+
+# Example 3: Over-dispersed data  
+overdispersed_data <- c(rep(0, 5), rep(1, 3), rep(2, 2), rep(10, 2), rep(15, 1))
+result3 <- goodness_of_fit_mCMP(overdispersed_data, B = 100, verbose = FALSE)
+
+# Compare results
+cat("Poisson-like data result:\n")
+print(result1)
+
+cat("\nUnder-dispersed data result:\n") 
+print(result2)
+
+cat("\nOver-dispersed data result:\n")
+print(result3)
+```
+
+## Basic Visualization
+
+```{r basic_plots}
+# Simple histogram for the data
+par(mfrow = c(1, 3))
+
+hist(poisson_data, main = "Poisson-like Data", 
+     xlab = "Count", ylab = "Frequency", col = "lightblue", breaks = 6)
+
+hist(underdispersed_data, main = "Under-dispersed Data",
+     xlab = "Count", ylab = "Frequency", col = "lightgreen", breaks = 6)
+
+hist(overdispersed_data, main = "Over-dispersed Data",
+     xlab = "Count", ylab = "Frequency", col = "lightcoral", breaks = 8)
+
+par(mfrow = c(1, 1))  # Reset plot layout
+```
 
 ## Parameter Interpretation
 
--   **μ (mu)**: Mean parameter
--   **φ (phi)**: Dispersion parameter
-    -   φ = 1: Equi-dispersed (Poisson-like)
-    -   φ \> 1: Under-dispersed
-    -   φ \< 1: Over-dispersed
+The COM-Poisson distribution has two key parameters:
+
+- **μ (mu)**: Mean parameter
+- **φ (phi)**: Dispersion parameter
+  - φ = 1: Equi-dispersed (similar to Poisson)
+  - φ > 1: Under-dispersed (variance < mean)
+  - φ < 1: Over-dispersed (variance > mean)
+
+## Test Statistics
+
+The package provides several test statistics:
+
+- **Modified Cramér-von Mises (CV_M)**: Based on Stein's characterization
+- **Modified Anderson-Darling (AD_M)**: Based on Stein's characterization  
+- **Probability Distance (PD)**: Based on Stein's characterization
+- **Standard tests**: Traditional Cramér-von Mises (CV), Anderson-Darling (AD), Chi-square
+
+## Recommendations
+
+- Use `B = 1000` or higher for final analysis
+- Use smaller `B` values (100-500) for exploratory analysis
+- Set `verbose = TRUE` to monitor bootstrap progress
+- Consider the computational time vs. accuracy tradeoff when choosing `B`
 
 ## Conclusion
 
-Use this package when you need to test if count data follows a COM-Poisson distribution, especially when dealing with under- or over-dispersed data.
+This package is particularly useful for count data that may not follow a standard Poisson distribution, especially when dealing with under- or over-dispersed observations.
