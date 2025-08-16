@@ -74,7 +74,7 @@ underdispersed_data <- c(rep(4, 10), rep(5, 15), rep(6, 8))
 result2 <- goodness_of_fit_mCMP(underdispersed_data, B = 100, verbose = FALSE)
 
 # Example 3: Over-dispersed data  
-overdispersed_data <- c(rep(0, 5), rep(1, 3), rep(2, 2), rep(10, 2), rep(15, 1))
+overdispersed_data <- c(rep(1, 4), rep(2, 2), rep(3, 5), rep(4, 4), rep(5, 3),6,7,8,9,11,11)
 result3 <- goodness_of_fit_mCMP(overdispersed_data, B = 100, verbose = FALSE)
 
 # Compare results
